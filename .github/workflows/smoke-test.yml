@@ -1,0 +1,59 @@
+name: Smoke test backend and build
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Install server deps
+      run: |
+        cd server
+        npm ci
+
+    - name: Start server
+      run: |
+        nohup node server/index.js > server.log 2>&1 &
+        # wait for server to start
+        for i in {1..10}; do
+          if curl -sS http://localhost:3001/api/content >/dev/null 2>&1; then
+            echo "server ready"
+            break
+          fi
+          sleep 1
+        done
+
+    - name: Smoke test GET
+      run: |
+        echo 'GET /api/content'
+        curl -sS http://localhost:3001/api/content | jq '.' || (cat server.log && exit 1)
+
+    - name: Smoke test POST
+      run: |
+        echo 'POST /api/content'
+        curl -sS -X POST http://localhost:3001/api/content -H 'Content-Type: application/json' -d '{"companyName":"CI Test"}' || (cat server.log && exit 1)
+        sleep 1
+        curl -sS http://localhost:3001/api/content | jq '.' || (cat server.log && exit 1)
+
+    - name: Install frontend deps & build
+      run: |
+        npm ci
+        npm run build
+
+    - name: Upload server log
+      uses: actions/upload-artifact@v4
+      with:
+        name: server-log
+        path: server.log
