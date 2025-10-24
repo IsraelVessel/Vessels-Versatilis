@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="380">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0%" stop-color="#0b5563" stop-opacity="1" />
+      <stop offset="100%" stop-color="#10a" stop-opacity="0.9" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="380" fill="url(#g)" />
+  <g transform="translate(60,60)">
+    <text x="0" y="40" font-family="Arial" font-size="40" fill="#fff">Vessels Versatilis</text>
+    <text x="0" y="78" font-family="Arial" font-size="18" fill="#e6f7f8">Conglomerate — Specialised Services · Contracting</text>
+  </g>
+</svg>

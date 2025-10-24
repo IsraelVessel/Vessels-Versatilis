@@ -1,0 +1,26 @@
+<svg width="1200" height="800" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="800" fill="#f7f9fb"/>
+  <rect x="0" y="0" width="1200" height="160" fill="#0b5563" rx="0"/>
+  <text x="40" y="60" fill="#ffffff" font-family="Arial" font-size="36">Vessels Versatilis</text>
+  <text x="40" y="100" fill="#e6f7f8" font-family="Arial" font-size="14">Specialised Services · Contracting · Large Enterprise</text>
+
+  <g transform="translate(40,200)">
+    <rect width="540" height="240" rx="8" fill="#ffffff" stroke="#e6eef0" />
+    <text x="20" y="30" font-family="Arial" font-size="18" fill="#0b1720">Business Details</text>
+    <text x="20" y="60" font-family="Arial" font-size="14" fill="#374151">Address: N0 14 Off Oguniyi Avenue Ado Ekiti</text>
+    <text x="20" y="86" font-family="Arial" font-size="14" fill="#374151">Category: large Business</text>
+    <text x="20" y="112" font-family="Arial" font-size="14" fill="#374151">Structure: Sole Proprietorship</text>
+  </g>
+
+  <g transform="translate(620,200)">
+    <rect width="540" height="240" rx="8" fill="#ffffff" stroke="#e6eef0" />
+    <text x="20" y="30" font-family="Arial" font-size="18" fill="#0b1720">About</text>
+    <text x="20" y="60" font-family="Arial" font-size="14" fill="#374151">Vessels Versatilis is a parent corporation that owns several independent companies in</text>
+    <text x="20" y="82" font-family="Arial" font-size="14" fill="#374151">unrelated industries. Main focus: contracting and specialised services.</text>
+  </g>
+
+  <rect x="40" y="480" width="1120" height="240" rx="8" fill="#ffffff" stroke="#e6eef0" />
+  <text x="60" y="520" font-family="Arial" font-size="16" fill="#0b1720">Editable admin: JSON-based editor lives in the app. Admin can edit company fields and save to localStorage or download JSON.</text>
+
+  <text x="40" y="760" font-family="Arial" font-size="12" fill="#94a3b8">Design mockup — import into Figma as an image for visual reference.</text>
+</svg>
