@@ -1,0 +1,29 @@
+name: Auto PR for feature branch
+
+on:
+  push:
+    branches:
+      - 'feature/*'
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create PR to main
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const branch = context.ref.replace('refs/heads/','')
+            const base = 'main'
+            // Check for existing PR
+            const { data: prs } = await github.rest.pulls.list({ owner: context.repo.owner, repo: context.repo.repo, head: `${context.repo.owner}:${branch}`, base })
+            if(prs.length === 0){
+              const pr = await github.rest.pulls.create({ owner: context.repo.owner, repo: context.repo.repo, title: `Auto PR: ${branch} -> ${base}`, head: branch, base, body: 'Auto-created PR from feature branch.' })
+              core.info(`Created PR: ${pr.data.html_url}`)
+            } else {
+              core.info('PR already exists; skipping')
+            }

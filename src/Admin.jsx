@@ -59,8 +59,9 @@ export default function Admin({initial, onSave, onCancel}){
     reader.onload = ()=>{
       try{
         const txt = reader.result
-        JSON.parse(txt) // validate
-        setJsonText(txt)
+        const parsed = JSON.parse(txt) // validate
+        setJsonText(JSON.stringify(parsed, null, 2))
+        setPreview(parsed)
         showNotification('Imported JSON into editor', 'success')
       }catch(err){
         setError('Invalid JSON file: ' + err.message)
@@ -72,11 +73,42 @@ export default function Admin({initial, onSave, onCancel}){
     e.target.value = ''
   }
 
+  // preview state shows a small key/value summary of parsed JSON
+  const [preview, setPreview] = useState(null)
+
+  // update preview when editor changes and it's valid JSON
+  const updatePreviewFromText = (text)=>{
+    try{
+      const p = JSON.parse(text)
+      setPreview(p)
+      setError(null)
+    }catch(e){
+      setPreview(null)
+    }
+  }
+
+  // wire text changes to preview updates
+  const onTextChange = (e)=>{
+    const v = e.target.value
+    setJsonText(v)
+    updatePreviewFromText(v)
+  }
+
   return (
     <div className="admin-overlay">
       <div className="admin-panel">
         <h3>Edit site content (JSON)</h3>
-        <textarea value={jsonText} onChange={e=>setJsonText(e.target.value)} spellCheck={false} />
+        <div className="editor-row">
+          <textarea value={jsonText} onChange={onTextChange} spellCheck={false} />
+          <div className="import-preview">
+            <h4>Preview</h4>
+            {preview ? (
+              <pre>{JSON.stringify(preview, null, 2)}</pre>
+            ) : (
+              <div className="muted">No valid JSON to preview</div>
+            )}
+          </div>
+        </div>
         {error && <div className="error">{error}</div>}
 
         <div className="admin-actions">

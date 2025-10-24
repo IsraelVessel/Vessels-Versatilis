@@ -29,3 +29,11 @@ a.contact{color:white;background:rgba(255,255,255,0.12);padding:8px 12px;border-
 .notification{margin-top:12px;padding:10px;border-radius:6px;color:white;font-weight:600}
 .notification.success{background:#16a34a}
 .notification.error{background:#ef4444}
+
+/* admin editor layout */
+.admin-panel .editor-row{display:flex;gap:12px}
+.admin-panel textarea{flex:1;min-height:320px}
+.import-preview{width:340px;max-height:320px;overflow:auto;background:#f8fafc;border:1px solid #e6eef0;padding:10px;border-radius:6px}
+.import-preview h4{margin:0 0 8px 0}
+.import-preview pre{font-size:12px;white-space:pre-wrap}
+.import-preview .muted{color:var(--muted);font-size:13px}
