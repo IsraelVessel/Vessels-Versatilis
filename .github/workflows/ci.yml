@@ -1,0 +1,38 @@
+name: CI - build on PRs
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install and build frontend
+        run: |
+          npm ci
+          npm run build
+
+      - name: Install and test backend (light)
+        run: |
+          cd server
+          npm ci
+          node index.js &
+          sleep 2
+          curl -sS http://localhost:3001/api/content || true
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-build
+          path: dist
