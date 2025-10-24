@@ -1,0 +1,12 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[[redirects]]
+  from = "/**"
+  to = "/index.html"
+  status = 200
+
+# Notes:
+# - Netlify will run `npm run build` and publish the `dist` folder (Vite default).
+# - To enable backend persistence, set the environment variable `VITE_API_URL` to your backend base URL (e.g. https://my-backend.example.com) in Netlify Site Settings -> Build & deploy -> Environment.

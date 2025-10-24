@@ -14,10 +14,12 @@ export default function Admin({initial, onSave, onCancel}){
   const handleSave = ()=>{
     try{
       const parsed = JSON.parse(jsonText)
-      // Try to persist to backend if available
+      // Try to persist to backend if available. Use VITE_API_URL at build time if provided.
       (async ()=>{
+        const API_BASE = import.meta.env.VITE_API_URL || ''
+        const url = API_BASE ? `${API_BASE.replace(/\/$/, '')}/api/content` : '/api/content'
         try{
-          const resp = await fetch('/api/content', {
+          const resp = await fetch(url, {
             method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(parsed)
           })
           if(resp.ok){

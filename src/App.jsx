@@ -20,9 +20,11 @@ function App(){
 
   useEffect(()=>{
     async function load(){
+      const API_BASE = import.meta.env.VITE_API_URL || ''
+      const url = API_BASE ? `${API_BASE.replace(/\/$/, '')}/api/content` : '/api/content'
       // Try backend first
       try{
-        const resp = await fetch('/api/content')
+        const resp = await fetch(url)
         if(resp.ok){
           const data = await resp.json()
           setContent(data)
