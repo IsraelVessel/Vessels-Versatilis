@@ -53,3 +53,12 @@ If you want, I can:
 - add a small Node/Express backend to persist content,
 - connect a headless CMS or a static export pipeline.
 
+Netlify deployment
+
+To enable automatic deployments to Netlify when `main` is updated, add the following repository secrets:
+
+- `NETLIFY_AUTH_TOKEN` — a Netlify personal access token (see Netlify docs).
+- `NETLIFY_SITE_ID` — the Site ID for the site you want to deploy to (from Netlify site Settings > Site information).
+
+Once those secrets are set, the GitHub Action `.github/workflows/netlify-deploy.yml` will build the site and run the Netlify CLI to publish the `dist` folder to the specified Netlify site on pushes to `main`.
+
